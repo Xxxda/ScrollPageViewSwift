@@ -1,5 +1,18 @@
 import UIKit
 
+let logger: Logger = {
+    let logger = Logger()
+    return logger
+}()
+
+struct Logger {
+    public func print<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
+        #if DEBUG
+        print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
+        #endif
+    }
+}
+
 /// 这个是发布当前显示的index的下标, 从 0 开始  注意, 通知的字典中的键名是 currentIndex
 public let ScrollPageViewDidShowThePageNotification = "ScrollPageViewDidShowThePageNotification"
 
