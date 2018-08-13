@@ -17,7 +17,7 @@ public class CustomGestureCollectionView: UICollectionView {
     }
 }
 
-public class ContentView: UIView {
+public class ScrollContentView: UIView {
     
     private let cellId = "cellId"
     
@@ -28,7 +28,7 @@ public class ContentView: UIView {
     private var oldIndex = 0
     private var currentIndex = 1
     private weak var parentViewController: UIViewController?
-    weak var delegate: ContentViewDelegate?
+    weak var delegate: ScrollContentViewDelegate?
     
     private(set) lazy var collectionView: CustomGestureCollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -114,7 +114,7 @@ public class ContentView: UIView {
     }
 }
 
-extension ContentView {
+extension ScrollContentView {
     
     // 给外界可以设置ContentOffSet的方法(public method to set contentOffSet)
     public func setContentOffSet(offSet: CGPoint , animated: Bool) {
@@ -145,7 +145,7 @@ extension ContentView {
     }
 }
 
-extension ContentView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ScrollContentView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return childVcs.count
@@ -165,7 +165,7 @@ extension ContentView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-extension ContentView: UIScrollViewDelegate {
+extension ScrollContentView: UIScrollViewDelegate {
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = Int(floor(scrollView.contentOffset.x / bounds.size.width))
@@ -238,7 +238,7 @@ extension ContentView: UIScrollViewDelegate {
     }
 }
 
-public protocol ContentViewDelegate: class {
+public protocol ScrollContentViewDelegate: class {
     /// 有默认实现, 不推荐重写(override is not recommoned)
     func contentViewMoveToIndex(fromIndex: Int, toIndex: Int, progress: CGFloat)
     /// 有默认实现, 不推荐重写(override is not recommoned)
@@ -252,7 +252,7 @@ public protocol ContentViewDelegate: class {
 }
 
 // 由于每个遵守这个协议的都需要执行些相同的操作, 所以直接使用协议扩展统一完成,协议遵守者只需要提供segmentView即可
-extension ContentViewDelegate {
+extension ScrollContentViewDelegate {
     
     public func contentViewDidEndDrag(scrollView: UIScrollView) {
         

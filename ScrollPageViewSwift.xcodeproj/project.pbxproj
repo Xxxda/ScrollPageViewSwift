@@ -14,7 +14,7 @@
 		5B37BC7D2121362800E741A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B37BC7B2121362800E741A6 /* LaunchScreen.storyboard */; };
 		5B37BC882121362800E741A6 /* ScrollPageViewSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BC872121362800E741A6 /* ScrollPageViewSwiftTests.swift */; };
 		5B37BC932121362800E741A6 /* ScrollPageViewSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BC922121362800E741A6 /* ScrollPageViewSwiftUITests.swift */; };
-		5B37BCA5212137E300E741A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BCA0212137E300E741A6 /* ContentView.swift */; };
+		5B37BCA5212137E300E741A6 /* ScrollContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BCA0212137E300E741A6 /* ScrollContentView.swift */; };
 		5B37BCA6212137E300E741A6 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BCA1212137E300E741A6 /* UIViewControllerExtension.swift */; };
 		5B37BCA7212137E300E741A6 /* ScrollSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BCA2212137E300E741A6 /* ScrollSegmentView.swift */; };
 		5B37BCA8212137E300E741A6 /* ScrollPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37BCA3212137E300E741A6 /* ScrollPageView.swift */; };
@@ -52,7 +52,7 @@
 		5B37BC8E2121362800E741A6 /* ScrollPageViewSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScrollPageViewSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B37BC922121362800E741A6 /* ScrollPageViewSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollPageViewSwiftUITests.swift; sourceTree = "<group>"; };
 		5B37BC942121362800E741A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5B37BCA0212137E300E741A6 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5B37BCA0212137E300E741A6 /* ScrollContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollContentView.swift; sourceTree = "<group>"; };
 		5B37BCA1212137E300E741A6 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		5B37BCA2212137E300E741A6 /* ScrollSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollSegmentView.swift; sourceTree = "<group>"; };
 		5B37BCA3212137E300E741A6 /* ScrollPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollPageView.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 		5B37BC712121362600E741A6 /* ScrollPageViewSwift */ = {
 			isa = PBXGroup;
 			children = (
-				5B37BCA0212137E300E741A6 /* ContentView.swift */,
+				5B37BCA0212137E300E741A6 /* ScrollContentView.swift */,
 				5B37BCA3212137E300E741A6 /* ScrollPageView.swift */,
 				5B37BCA2212137E300E741A6 /* ScrollSegmentView.swift */,
 				5B37BCA4212137E300E741A6 /* SegmentStyle.swift */,
@@ -277,7 +277,7 @@
 				5B37BC732121362600E741A6 /* AppDelegate.swift in Sources */,
 				5B37BCA9212137E300E741A6 /* SegmentStyle.swift in Sources */,
 				5B37BCA8212137E300E741A6 /* ScrollPageView.swift in Sources */,
-				5B37BCA5212137E300E741A6 /* ContentView.swift in Sources */,
+				5B37BCA5212137E300E741A6 /* ScrollContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

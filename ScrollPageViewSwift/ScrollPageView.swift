@@ -13,7 +13,7 @@ public class ScrollPageView: UIView {
     }
     
     private(set) var segView: ScrollSegmentView!
-    private(set) var contentView: ContentView!
+    private(set) var contentView: ScrollContentView!
     private var titlesArray: [String] = []
     private var childVcs: [UIViewController] = []
     private weak var parentViewController: UIViewController?
@@ -43,7 +43,7 @@ public class ScrollPageView: UIView {
         
         guard let parentVc = parentViewController else { return }
         
-        contentView = ContentView(frame: CGRect(x: 0,
+        contentView = ScrollContentView(frame: CGRect(x: 0,
                                                 y: (segView.frame.origin.y + segView.frame.height),
                                                 width: bounds.size.width,
                                                 height: bounds.size.height - 44),
@@ -79,7 +79,7 @@ extension ScrollPageView {
     }
 }
 
-extension ScrollPageView: ContentViewDelegate {
+extension ScrollPageView: ScrollContentViewDelegate {
     
     public var segmentView: ScrollSegmentView {
         return segView

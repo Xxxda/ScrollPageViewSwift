@@ -19,7 +19,7 @@ extension UIViewController {
         get {
             var superVc = self.parent
             while superVc != nil {
-                if superVc! is ContentViewDelegate  {
+                if superVc! is ScrollContentViewDelegate  {
                     break
                 }
                 superVc = superVc!.parent
