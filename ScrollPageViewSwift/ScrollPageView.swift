@@ -2,33 +2,27 @@ import UIKit
 
 public class ScrollPageView: UIView {
     
+    weak var delegate: ScrollContentViewDelegate?
+
     private let cellId = "cellId"
-    
-    private var segmentStyle = SegmentStyle()
-    
+
     public var extraBtnOnClick: ((_ extraBtn: UIButton) -> Void)? {
         didSet {
-            segView.extraBtnOnClick = extraBtnOnClick
         }
     }
     
-    private(set) var segView: ScrollSegmentView!
     private(set) var contentView: ScrollContentView!
     private var titlesArray: [String] = []
     private var childVcs: [UIViewController] = []
     private weak var parentViewController: UIViewController?
     
     init(frame:CGRect,
-                segmentStyle: SegmentStyle,
-                titles: [String],
-                childVcs:[UIViewController],
-                parentViewController: UIViewController) {
+         childVcs:[UIViewController],
+         parentViewController: UIViewController) {
         
         self.parentViewController = parentViewController
         self.childVcs = childVcs
-        self.titlesArray = titles
-        self.segmentStyle = segmentStyle
-        assert(childVcs.count == titles.count, "标题的个数必须和子控制器的个数相同")
+
         super.init(frame: frame)
         commonInit()
     }
@@ -39,26 +33,27 @@ public class ScrollPageView: UIView {
     
     private func commonInit() {
         backgroundColor = UIColor.white
-        segView = ScrollSegmentView(frame: CGRect(x: 0, y: 0, width: bounds.size.width, height: 44), segmentStyle: segmentStyle, titles: titlesArray)
+
         
         guard let parentVc = parentViewController else { return }
         
         contentView = ScrollContentView(frame: CGRect(x: 0,
-                                                y: (segView.frame.origin.y + segView.frame.height),
+                                                y: 0,
                                                 width: bounds.size.width,
-                                                height: bounds.size.height - 44),
+                                                height: bounds.size.height),
                                   childVcs: childVcs,
                                   parentViewController: parentVc)
         contentView.delegate = self
         
-        addSubview(segView)
         addSubview(contentView)
-        segView.titleBtnOnClick = {[unowned self] (label: UILabel, index: Int) in
-            self.contentView.setContentOffSet(offSet: CGPoint(x: self.contentView.bounds.size.width * CGFloat(index), y: 0),
-                                              animated: self.segmentStyle.changeContentAnimated)
-        }
+
     }
-    
+
+    func scrollToIndex(_ index: Int, animated: Bool) {
+        self.contentView.setContentOffSet(offSet: CGPoint(x: self.contentView.bounds.size.width * CGFloat(index), y: 0),
+                                          animated: animated)
+    }
+
     deinit {
         parentViewController = nil
         logger.print("...")
@@ -68,20 +63,23 @@ public class ScrollPageView: UIView {
 extension ScrollPageView {
     
     public func selectedIndex(selectedIndex: Int, animated: Bool) {
-        segView.selectedIndex(selectedIndex: selectedIndex, animated: animated)
     }
     
-    public func reloadChildVcsWithNewTitles(titles: [String], andNewChildVcs newChildVcs: [UIViewController]) {
+    public func reloadChildVcsWithNewTitles(andNewChildVcs newChildVcs: [UIViewController]) {
         self.childVcs = newChildVcs
-        self.titlesArray = titles
-        segView.reloadTitlesWithNewTitles(titles: titlesArray)
         contentView.reloadAllViewsWithNewChildVcs(newChildVcs: childVcs)
     }
 }
 
 extension ScrollPageView: ScrollContentViewDelegate {
-    
-    public var segmentView: ScrollSegmentView {
-        return segView
+
+    // 内容每次滚动完成时调用, 确定title和其他的控件的位置
+    public func contentViewDidEndMoveToIndex(fromIndex: Int , toIndex: Int) {
+        delegate?.contentViewDidEndMoveToIndex(fromIndex: fromIndex, toIndex: toIndex)
+    }
+
+    // 内容正在滚动的时候,同步滚动滑块的控件
+    public func contentViewMoveToIndex(fromIndex: Int, toIndex: Int, progress: CGFloat) {
+        delegate?.contentViewMoveToIndex(fromIndex: fromIndex, toIndex: toIndex, progress: progress)
     }
 }

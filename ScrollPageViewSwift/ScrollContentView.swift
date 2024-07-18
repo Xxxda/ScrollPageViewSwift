@@ -248,7 +248,6 @@ public protocol ScrollContentViewDelegate: class {
     func contentViewIsScrolling(scrollView: UIScrollView)
     func contentViewDidEndDisPlay(scrollView: UIScrollView)
     func contentViewDidEndDrag(scrollView: UIScrollView)
-    var segmentView: ScrollSegmentView { get }
 }
 
 // 由于每个遵守这个协议的都需要执行些相同的操作, 所以直接使用协议扩展统一完成,协议遵守者只需要提供segmentView即可
@@ -276,13 +275,10 @@ extension ScrollContentViewDelegate {
     
     // 内容每次滚动完成时调用, 确定title和其他的控件的位置
     public func contentViewDidEndMoveToIndex(fromIndex: Int , toIndex: Int) {
-        segmentView.adjustTitleOffSetToCurrentIndex(toIndex)
-        segmentView.adjustUIWithProgress(1.0, fromIndex, toIndex)
     }
-    
+
     // 内容正在滚动的时候,同步滚动滑块的控件
     public func contentViewMoveToIndex(fromIndex: Int, toIndex: Int, progress: CGFloat) {
-        segmentView.adjustUIWithProgress(progress, fromIndex, toIndex)
     }
 }
 

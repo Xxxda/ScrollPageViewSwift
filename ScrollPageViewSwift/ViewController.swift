@@ -1,6 +1,16 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ScrollContentViewDelegate {
+    func contentViewMoveToIndex(fromIndex: Int, toIndex: Int, progress: CGFloat) {
+        segmentView?.adjustUIWithProgress(progress, fromIndex, toIndex)
+    }
+    
+    func contentViewDidEndMoveToIndex(fromIndex: Int, toIndex: Int) {
+        segmentView?.adjustTitleOffSetToCurrentIndex(toIndex)
+    }
+    
+
+    var segmentView: ScrollSegmentView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,15 +22,24 @@ class ViewController: UIViewController {
         style.scrollLineColor = UIColor.black
         
         let titles = setChildVcs().map { $0.title! }
+
+        let segmentView = ScrollSegmentView(frame: CGRect(x: 0, y: 64, width: view.bounds.size.width, height: 44), segmentStyle: SegmentStyle(), titles: titles)
+
+
         let scroll = ScrollPageView(frame: CGRect(x: 0,
-                                                  y: 64,
+                                                  y: 64 + 44,
                                                   width: view.bounds.size.width,
                                                   height: view.bounds.size.height - 64),
-                                    segmentStyle: style,
-                                    titles: titles,
                                     childVcs: setChildVcs(),
                                     parentViewController: self)
+        scroll.delegate = self
         view.addSubview(scroll)
+        view.addSubview(segmentView)
+
+        segmentView.titleBtnOnClick = {
+            scroll.scrollToIndex($1, animated: true)
+        }
+        self.segmentView = segmentView
     }
     
     func setChildVcs() -> [UIViewController] {
